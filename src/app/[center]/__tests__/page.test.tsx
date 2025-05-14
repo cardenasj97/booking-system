@@ -1,11 +1,5 @@
 import "@testing-library/jest-dom";
-import {
-  render,
-  screen,
-  waitFor,
-  fireEvent,
-  act,
-} from "@testing-library/react";
+import { render, screen, waitFor, fireEvent, act } from "@testing-library/react";
 import CenterPage from "../page";
 import { api } from "@/services/api";
 import { showConfetti } from "@/utils/confetti";
@@ -102,9 +96,7 @@ describe("CenterPage", () => {
 
     await waitFor(() => {
       expect(screen.getByText(/error/i)).toBeInTheDocument();
-      expect(
-        screen.getByText(/failed to load beauty center data/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/failed to load beauty center data/i)).toBeInTheDocument();
     });
   });
 
@@ -133,9 +125,7 @@ describe("CenterPage", () => {
     render(<CenterPage />);
 
     await waitFor(() => {
-      expect(
-        screen.getByText("No services available at this time.")
-      ).toBeInTheDocument();
+      expect(screen.getByText("No services available at this time.")).toBeInTheDocument();
     });
   });
 
@@ -153,9 +143,7 @@ describe("CenterPage", () => {
     await waitFor(() => {
       // Check booking form appears with the service name
       expect(screen.getByText(/book appointment/i)).toBeInTheDocument();
-      expect(
-        screen.getByText(/book haircut/i, { exact: false })
-      ).toBeInTheDocument();
+      expect(screen.getByText(/book haircut/i, { exact: false })).toBeInTheDocument();
     });
 
     // Check if scrollIntoView was called after timeout
@@ -163,9 +151,7 @@ describe("CenterPage", () => {
       jest.advanceTimersByTime(100);
     });
 
-    expect(window.HTMLElement.prototype.scrollIntoView).toHaveBeenCalledTimes(
-      1
-    );
+    expect(window.HTMLElement.prototype.scrollIntoView).toHaveBeenCalledTimes(1);
   });
 
   it("should cancel booking and return to services view", async () => {
@@ -225,12 +211,8 @@ describe("CenterPage", () => {
 
     // Should show confirmation
     await waitFor(() => {
-      expect(
-        screen.getByText(/booking confirmed/i, { exact: false })
-      ).toBeInTheDocument();
-      expect(
-        screen.getByText(/haircut/i, { exact: false })
-      ).toBeInTheDocument();
+      expect(screen.getByText(/booking confirmed/i, { exact: false })).toBeInTheDocument();
+      expect(screen.getByText(/haircut/i, { exact: false })).toBeInTheDocument();
     });
 
     // Check if confetti was shown
@@ -238,9 +220,7 @@ describe("CenterPage", () => {
   });
 
   it("should handle booking submission error", async () => {
-    (api.createBooking as jest.Mock).mockRejectedValue(
-      new Error("Booking Error")
-    );
+    (api.createBooking as jest.Mock).mockRejectedValue(new Error("Booking Error"));
 
     render(<CenterPage />);
 
@@ -310,9 +290,7 @@ describe("CenterPage", () => {
 
     // Should show confirmation
     await waitFor(() => {
-      expect(
-        screen.getByText(/booking confirmed/i, { exact: false })
-      ).toBeInTheDocument();
+      expect(screen.getByText(/booking confirmed/i, { exact: false })).toBeInTheDocument();
     });
 
     // Clear the mock state before our test
@@ -323,9 +301,7 @@ describe("CenterPage", () => {
 
     // Should show services again
     await waitFor(() => {
-      expect(
-        screen.queryByText(/booking confirmed/i, { exact: false })
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText(/booking confirmed/i, { exact: false })).not.toBeInTheDocument();
       expect(screen.getByText("Our Services")).toBeInTheDocument();
       expect(screen.getByText("Haircut")).toBeInTheDocument();
     });

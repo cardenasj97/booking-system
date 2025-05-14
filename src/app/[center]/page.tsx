@@ -69,28 +69,24 @@ export default function CenterPage() {
               </div>
             )}
 
-            {bookingState === BookingState.CONFIRMED &&
-              confirmationData &&
-              selectedService && (
-                <div className="mb-12">
-                  <BookingConfirmation
-                    service={selectedService}
-                    name={confirmationData.name}
-                    email={confirmationData.email}
-                    date={confirmationData.date}
-                    time={confirmationData.time}
-                    centerId={centerId}
-                    onReturnClick={handleReturnToCenter}
-                  />
-                </div>
-              )}
+            {bookingState === BookingState.CONFIRMED && confirmationData && selectedService && (
+              <div className="mb-12">
+                <BookingConfirmation
+                  service={selectedService}
+                  name={confirmationData.name}
+                  email={confirmationData.email}
+                  date={confirmationData.date}
+                  time={confirmationData.time}
+                  centerId={centerId}
+                  onReturnClick={handleReturnToCenter}
+                />
+              </div>
+            )}
 
             {/* Services Section (hidden when showing confirmation) */}
             {bookingState !== BookingState.CONFIRMED && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                  Our Services
-                </h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">Our Services</h2>
 
                 {isLoading ? (
                   <LoadingSpinner />

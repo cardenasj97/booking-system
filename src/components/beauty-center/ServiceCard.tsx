@@ -5,10 +5,7 @@ interface ServiceCardProps {
   onBookClick: (serviceId: string) => void;
 }
 
-export default function ServiceCard({
-  service,
-  onBookClick,
-}: ServiceCardProps) {
+export default function ServiceCard({ service, onBookClick }: ServiceCardProps) {
   const formatPrice = (price: number): string => {
     return `$${price.toFixed(2)}`;
   };
@@ -33,12 +30,8 @@ export default function ServiceCard({
       <div className="p-6">
         <h3 className="font-bold text-xl mb-2 text-pink-600">{service.name}</h3>
         <div className="flex justify-between items-center mb-3">
-          <span className="text-gray-700 text-sm">
-            {formatDuration(service.duration)}
-          </span>
-          <span className="font-bold text-lg text-gray-700">
-            {formatPrice(service.price)}
-          </span>
+          <span className="text-gray-700 text-sm">{formatDuration(service.duration)}</span>
+          <span className="font-bold text-lg text-gray-700">{formatPrice(service.price)}</span>
         </div>
         <p className="text-gray-700 mb-4 text-sm">{service.description}</p>
         <button

@@ -78,9 +78,7 @@ export default function BookingConfirmation({
           </svg>
         </div>
         <h2 className="text-2xl font-bold text-gray-800">Booking Confirmed!</h2>
-        <p className="text-gray-700 mt-1">
-          Your appointment has been successfully booked.
-        </p>
+        <p className="text-gray-700 mt-1">Your appointment has been successfully booked.</p>
       </div>
 
       <div className="border-t border-b py-4 mb-6">

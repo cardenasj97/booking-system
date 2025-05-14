@@ -10,10 +10,7 @@ interface QuickLinksProps {
   title?: string;
 }
 
-export default function QuickLinks({
-  links,
-  title = "Quick Links",
-}: QuickLinksProps) {
+export default function QuickLinks({ links, title = "Quick Links" }: QuickLinksProps) {
   return (
     <div>
       <h3 className="text-lg font-bold mb-4">{title}</h3>

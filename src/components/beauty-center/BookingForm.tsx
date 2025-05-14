@@ -8,12 +8,7 @@ interface BookingFormProps {
   onCancel: () => void;
 }
 
-export default function BookingForm({
-  service,
-  centerId,
-  onSubmit,
-  onCancel,
-}: BookingFormProps) {
+export default function BookingForm({ service, centerId, onSubmit, onCancel }: BookingFormProps) {
   const [formData, setFormData] = useState<BookingFormData>({
     name: "",
     email: "",
@@ -106,16 +101,11 @@ export default function BookingForm({
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-center text-pink-600">
-        Book {service.name}
-      </h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-pink-600">Book {service.name}</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-medium mb-1"
-          >
+          <label htmlFor="name" className="block text-gray-700 font-medium mb-1">
             Name
           </label>
           <input
@@ -131,16 +121,11 @@ export default function BookingForm({
             }`}
             placeholder="Your full name"
           />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-          )}
+          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-gray-700 font-medium mb-1"
-          >
+          <label htmlFor="email" className="block text-gray-700 font-medium mb-1">
             Email
           </label>
           <input
@@ -156,16 +141,11 @@ export default function BookingForm({
             }`}
             placeholder="your.email@example.com"
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-          )}
+          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="date"
-            className="block text-gray-700 font-medium mb-1"
-          >
+          <label htmlFor="date" className="block text-gray-700 font-medium mb-1">
             Date
           </label>
           <input
@@ -181,16 +161,11 @@ export default function BookingForm({
             }`}
             min={today}
           />
-          {errors.date && (
-            <p className="text-red-500 text-sm mt-1">{errors.date}</p>
-          )}
+          {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date}</p>}
         </div>
 
         <div className="mb-6">
-          <label
-            htmlFor="time"
-            className="block text-gray-700 font-medium mb-1"
-          >
+          <label htmlFor="time" className="block text-gray-700 font-medium mb-1">
             Time
           </label>
           <input
@@ -205,9 +180,7 @@ export default function BookingForm({
                 : "border-gray-300 focus:ring-pink-200"
             }`}
           />
-          {errors.time && (
-            <p className="text-red-500 text-sm mt-1">{errors.time}</p>
-          )}
+          {errors.time && <p className="text-red-500 text-sm mt-1">{errors.time}</p>}
         </div>
 
         <div className="flex space-x-3">

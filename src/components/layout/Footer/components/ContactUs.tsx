@@ -8,10 +8,7 @@ interface ContactUsProps {
   title?: string;
 }
 
-export default function ContactUs({
-  contactInfo,
-  title = "Contact Us",
-}: ContactUsProps) {
+export default function ContactUs({ contactInfo, title = "Contact Us" }: ContactUsProps) {
   return (
     <div>
       <h3 className="text-lg font-bold mb-4">{title}</h3>

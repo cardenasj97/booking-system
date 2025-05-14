@@ -17,11 +17,8 @@ export const useCenterPage = (centerId: string) => {
   const [center, setCenter] = useState<Center | null>(null);
   const [services, setServices] = useState<Service[]>([]);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [bookingState, setBookingState] = useState<BookingState>(
-    BookingState.BROWSING
-  );
-  const [confirmationData, setConfirmationData] =
-    useState<BookingFormData | null>(null);
+  const [bookingState, setBookingState] = useState<BookingState>(BookingState.BROWSING);
+  const [confirmationData, setConfirmationData] = useState<BookingFormData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
