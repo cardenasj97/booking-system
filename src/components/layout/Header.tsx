@@ -10,6 +10,14 @@ export default function Header() {
         >
           BeautyBook
         </Link>
+        <nav>
+          <Link
+            href="/"
+            className="text-gray-700 hover:text-pink-600 transition-colors cursor-pointer"
+          >
+            Beauty Centers
+          </Link>
+        </nav>
       </div>
     </header>
   );
