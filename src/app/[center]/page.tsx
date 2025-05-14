@@ -1,131 +1,34 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { api } from "@/services/api";
-import { Center, Service, BookingFormData } from "@/types";
+import { useParams } from "next/navigation";
+import { useCenterPage } from "@/hooks/useCenterPage";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import CenterHeader from "@/components/beauty-center/CenterHeader";
 import ServiceCard from "@/components/beauty-center/ServiceCard";
 import BookingForm from "@/components/beauty-center/BookingForm";
 import BookingConfirmation from "@/components/beauty-center/BookingConfirmation";
-import { showConfetti } from "@/utils/confetti";
-
-enum BookingState {
-  BROWSING,
-  BOOKING,
-  CONFIRMED,
-}
+import CenterNotFound from "@/components/beauty-center/CenterNotFound";
+import Error from "@/components/ui/Error";
 
 export default function CenterPage() {
   const params = useParams();
-  const router = useRouter();
   const centerId = params.center as string;
-  const bookingFormRef = useRef<HTMLDivElement>(null);
 
-  const [center, setCenter] = useState<Center | null>(null);
-  const [services, setServices] = useState<Service[]>([]);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [bookingState, setBookingState] = useState<BookingState>(
-    BookingState.BROWSING
-  );
-  const [confirmationData, setConfirmationData] =
-    useState<BookingFormData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  // Monitor booking state changes
-  useEffect(() => {
-    if (bookingState === BookingState.CONFIRMED) {
-      // Trigger confetti when booking is confirmed
-      showConfetti();
-    }
-  }, [bookingState]);
-
-  useEffect(() => {
-    const fetchCenterData = async () => {
-      try {
-        setIsLoading(true);
-
-        // Fetch center details
-        const centerData = await api.getCenter(centerId);
-        if (!centerData) {
-          router.push("/");
-          return;
-        }
-        setCenter(centerData);
-
-        // Fetch services for this center
-        const servicesData = await api.getServicesByCenter(centerId);
-        setServices(servicesData);
-
-        setError(null);
-      } catch (err) {
-        console.error("Error fetching center data:", err);
-        setError("Failed to load beauty center data. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCenterData();
-  }, [centerId, router]);
-
-  const handleBookClick = (serviceId: string) => {
-    const service = services.find((s) => s.id === serviceId);
-    if (service) {
-      setSelectedService(service);
-      setBookingState(BookingState.BOOKING);
-
-      // Wait for state update and DOM to render before scrolling
-      setTimeout(() => {
-        bookingFormRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }
-  };
-
-  const handleFormSubmit = async (formData: BookingFormData) => {
-    try {
-      setIsLoading(true);
-
-      // Create booking via API
-      await api.createBooking(
-        formData.name,
-        formData.email,
-        formData.serviceId,
-        formData.date,
-        formData.time
-      );
-
-      // Store confirmation data
-      setConfirmationData(formData);
-
-      // Update booking state
-      setBookingState(BookingState.CONFIRMED);
-
-      // Don't scroll to top when showing confirmation
-    } catch (err) {
-      console.error("Error creating booking:", err);
-      setError("Failed to create your booking. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleFormCancel = () => {
-    setSelectedService(null);
-    setBookingState(BookingState.BROWSING);
-  };
-
-  const handleReturnToCenter = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent the default link navigation
-    setBookingState(BookingState.BROWSING);
-    setSelectedService(null);
-    setConfirmationData(null);
-
-    // Scroll to top of the page smoothly
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const {
+    center,
+    services,
+    selectedService,
+    bookingState,
+    confirmationData,
+    isLoading,
+    error,
+    bookingFormRef,
+    handleBookClick,
+    handleFormSubmit,
+    handleFormCancel,
+    handleReturnToCenter,
+    BookingState,
+  } = useCenterPage(centerId);
 
   // Render loading state
   if (isLoading && !center) {
@@ -138,26 +41,12 @@ export default function CenterPage() {
 
   // Render error state
   if (error && !isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 py-12 px-4">
-        <div className="max-w-md mx-auto bg-red-50 p-6 rounded-lg text-center text-red-600">
-          <h2 className="text-xl font-bold mb-2">Error</h2>
-          <p>{error}</p>
-        </div>
-      </div>
-    );
+    return <Error message={error} />;
   }
 
   // Render center not found
   if (!center && !isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 py-12 px-4">
-        <div className="max-w-md mx-auto bg-yellow-50 p-6 rounded-lg text-center text-yellow-700">
-          <h2 className="text-xl font-bold mb-2">Center Not Found</h2>
-          <p>The beauty center you are looking for does not exist.</p>
-        </div>
-      </div>
-    );
+    return <CenterNotFound />;
   }
 
   return (
