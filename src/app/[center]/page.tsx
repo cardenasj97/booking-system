@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { api } from "@/services/api";
 import { Center, Service, BookingFormData } from "@/types";
@@ -21,6 +21,7 @@ export default function CenterPage() {
   const params = useParams();
   const router = useRouter();
   const centerId = params.center as string;
+  const bookingFormRef = useRef<HTMLDivElement>(null);
 
   const [center, setCenter] = useState<Center | null>(null);
   const [services, setServices] = useState<Service[]>([]);
@@ -75,7 +76,11 @@ export default function CenterPage() {
     if (service) {
       setSelectedService(service);
       setBookingState(BookingState.BOOKING);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Wait for state update and DOM to render before scrolling
+      setTimeout(() => {
+        bookingFormRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     }
   };
 
@@ -165,7 +170,7 @@ export default function CenterPage() {
 
             {/* Booking Form or Confirmation */}
             {bookingState === BookingState.BOOKING && selectedService && (
-              <div className="mb-12">
+              <div className="mb-12" ref={bookingFormRef}>
                 <BookingForm
                   service={selectedService}
                   centerId={centerId}
