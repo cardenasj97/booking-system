@@ -82,4 +82,13 @@ Approximately [X] hours spent on this project.
 
 ## AI Tools Used
 
-No AI tools were used in the development of this application.
+For this application I used Cursor IDE.
+
+Pros:
+
+- Good for initial implementation.
+- Good for doing adjustments.
+
+Cons:
+
+- It's not perfect, so I had to do some manual adjustments, and run a manual QA of the application with each change.
