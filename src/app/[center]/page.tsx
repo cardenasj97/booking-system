@@ -5,10 +5,10 @@ import { useParams, useRouter } from "next/navigation";
 import { api } from "@/services/api";
 import { Center, Service, BookingFormData } from "@/types";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import CenterHeader from "@/components/CenterHeader";
-import ServiceCard from "@/components/ServiceCard";
-import BookingForm from "@/components/BookingForm";
-import BookingConfirmation from "@/components/BookingConfirmation";
+import CenterHeader from "@/components/beauty-center/CenterHeader";
+import ServiceCard from "@/components/beauty-center/ServiceCard";
+import BookingForm from "@/components/beauty-center/BookingForm";
+import BookingConfirmation from "@/components/beauty-center/BookingConfirmation";
 import { showConfetti } from "@/utils/confetti";
 
 enum BookingState {
