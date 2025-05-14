@@ -1,4 +1,4 @@
-Visit our page in the following link: https://booking-system-seven-iota.vercel.app/
+You can find the live demo in the following link: https://booking-system-seven-iota.vercel.app/
 
 # Multi-tenant Beauty Center Booking System
 
