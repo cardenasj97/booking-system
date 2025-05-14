@@ -91,4 +91,4 @@ Pros:
 
 Cons:
 
-- It's not perfect, so I had to do some manual adjustments, and run a manual QA of the application with each change.
+- It's not perfect, so I had to do some manual adjustments, and run a manual QA of the application with each change applied.
