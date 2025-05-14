@@ -26,3 +26,13 @@ export function formatTimeDisplay(timeString: string): string {
   const hour12 = hour % 12 || 12;
   return `${hour12}:${minutes} ${ampm}`;
 }
+
+/**
+ * Formats price to a currency string with dollar sign and two decimal places
+ */
+export function formatPrice(price: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(price);
+}

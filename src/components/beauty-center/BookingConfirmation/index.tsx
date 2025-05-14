@@ -36,7 +36,10 @@ export default function BookingConfirmation({
   }, []);
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto">
+    <div
+      className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto"
+      aria-label="booking-confirmation"
+    >
       <BookingHeader />
 
       <div className="border-t border-b py-4 mb-6">

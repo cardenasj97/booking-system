@@ -1,5 +1,5 @@
 import { Service } from "@/types";
-import { formatDateDisplay, formatTimeDisplay } from "../utils";
+import { formatDateDisplay, formatTimeDisplay, formatPrice } from "../utils";
 
 interface BookingDetailsProps {
   service: Service;
@@ -12,7 +12,10 @@ export default function BookingDetails({ service, date, time }: BookingDetailsPr
     <>
       <div className="mb-4">
         <h3 className="font-semibold text-gray-700 mb-1">Service</h3>
-        <p className="text-lg text-pink-600">{service.name}</p>
+        <div className="flex justify-between items-center">
+          <p className="text-lg text-pink-600">{service.name}</p>
+          <p className="text-lg font-medium text-gray-800">{formatPrice(service.price)}</p>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-4">
