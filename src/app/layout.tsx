@@ -20,13 +20,16 @@ export default function RootLayout({
       <body className={inter.className}>
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold text-pink-600">
+            <Link
+              href="/"
+              className="text-2xl font-bold text-pink-600 cursor-pointer"
+            >
               BeautyBook
             </Link>
             <nav>
               <Link
                 href="/"
-                className="text-gray-700 hover:text-pink-600 transition-colors"
+                className="text-gray-700 hover:text-pink-600 transition-colors cursor-pointer"
               >
                 Beauty Centers
               </Link>
@@ -41,7 +44,7 @@ export default function RootLayout({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
                 <h3 className="text-lg font-bold mb-4">BeautyBook</h3>
-                <p className="text-gray-400">
+                <p className="text-gray-700">
                   The easiest way to book beauty services at your favorite
                   centers.
                 </p>
@@ -52,7 +55,7 @@ export default function RootLayout({
                   <li>
                     <Link
                       href="/"
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-gray-700 hover:text-white transition-colors cursor-pointer"
                     >
                       Home
                     </Link>
@@ -60,7 +63,7 @@ export default function RootLayout({
                   <li>
                     <Link
                       href="/center1"
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-gray-700 hover:text-white transition-colors cursor-pointer"
                     >
                       Bella Beauty Center
                     </Link>
@@ -68,7 +71,7 @@ export default function RootLayout({
                   <li>
                     <Link
                       href="/center2"
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-gray-700 hover:text-white transition-colors cursor-pointer"
                     >
                       Glow Spa & Salon
                     </Link>
@@ -77,14 +80,14 @@ export default function RootLayout({
               </div>
               <div>
                 <h3 className="text-lg font-bold mb-4">Contact Us</h3>
-                <p className="text-gray-400">
+                <p className="text-gray-700">
                   Email: info@beautybook.com
                   <br />
                   Phone: (123) 456-7890
                 </p>
               </div>
             </div>
-            <div className="mt-8 pt-6 border-t border-gray-700 text-center text-gray-400">
+            <div className="mt-8 pt-6 border-t border-gray-700 text-center text-gray-700">
               <p>
                 &copy; {new Date().getFullYear()} BeautyBook. All rights
                 reserved.

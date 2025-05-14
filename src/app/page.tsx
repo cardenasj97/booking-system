@@ -36,7 +36,7 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Beauty Centers Directory
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
             Find your favorite beauty center and book services online
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function Home() {
                     <h2 className="text-2xl font-bold text-center text-gray-800 mb-3">
                       {center.name}
                     </h2>
-                    <p className="text-gray-600 text-center">
+                    <p className="text-gray-700 text-center">
                       {center.description}
                     </p>
                   </div>

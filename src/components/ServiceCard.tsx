@@ -33,10 +33,10 @@ export default function ServiceCard({
       <div className="p-6">
         <h3 className="font-bold text-xl mb-2 text-pink-600">{service.name}</h3>
         <div className="flex justify-between items-center mb-3">
-          <span className="text-gray-600 text-sm">
+          <span className="text-gray-700 text-sm">
             {formatDuration(service.duration)}
           </span>
-          <span className="font-semibold text-lg">
+          <span className="font-bold text-lg text-gray-700">
             {formatPrice(service.price)}
           </span>
         </div>

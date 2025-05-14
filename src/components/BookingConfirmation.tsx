@@ -1,5 +1,7 @@
 import { Service } from "@/types";
 import Link from "next/link";
+import { useEffect } from "react";
+import { showConfetti } from "@/utils/confetti";
 
 interface BookingConfirmationProps {
   service: Service;
@@ -8,6 +10,7 @@ interface BookingConfirmationProps {
   date: string;
   time: string;
   centerId: string;
+  onReturnClick: (e: React.MouseEvent) => void;
 }
 
 export default function BookingConfirmation({
@@ -17,16 +20,33 @@ export default function BookingConfirmation({
   date,
   time,
   centerId,
+  onReturnClick,
 }: BookingConfirmationProps) {
+  // Show confetti when component mounts
+  useEffect(() => {
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      showConfetti();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // Format date for display
   const formatDate = (dateString: string) => {
+    // Create a date object with the date part only to prevent timezone issues
+    // Add the time to ensure it's treated as local time
+    const [year, month, day] = dateString.split("-").map(Number);
+    const localDate = new Date(year, month - 1, day); // month is 0-indexed in JS Date
+
     const options: Intl.DateTimeFormatOptions = {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
     };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+
+    return localDate.toLocaleDateString(undefined, options);
   };
 
   // Format time for display
@@ -58,7 +78,7 @@ export default function BookingConfirmation({
           </svg>
         </div>
         <h2 className="text-2xl font-bold text-gray-800">Booking Confirmed!</h2>
-        <p className="text-gray-600 mt-1">
+        <p className="text-gray-700 mt-1">
           Your appointment has been successfully booked.
         </p>
       </div>
@@ -72,23 +92,23 @@ export default function BookingConfirmation({
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
             <h3 className="font-semibold text-gray-700 mb-1">Date</h3>
-            <p>{formatDate(date)}</p>
+            <p className="text-gray-700">{formatDate(date)}</p>
           </div>
           <div>
             <h3 className="font-semibold text-gray-700 mb-1">Time</h3>
-            <p>{formatTime(time)}</p>
+            <p className="text-gray-700">{formatTime(time)}</p>
           </div>
         </div>
 
         <div className="mb-1">
           <h3 className="font-semibold text-gray-700 mb-1">Customer</h3>
-          <p>{name}</p>
-          <p className="text-gray-600">{email}</p>
+          <p className="text-gray-700">{name}</p>
+          <p className="text-gray-700">{email}</p>
         </div>
       </div>
 
       <div className="text-center">
-        <Link href={`/${centerId}`}>
+        <Link href={`/${centerId}`} onClick={onReturnClick}>
           <button className="px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-md transition-colors duration-300">
             Return to Beauty Center
           </button>

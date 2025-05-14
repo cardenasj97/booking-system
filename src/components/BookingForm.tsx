@@ -57,22 +57,36 @@ export default function BookingForm({
       newErrors.email = "Please enter a valid email address";
     }
 
-    // Date validation
+    // Date and time validation
     if (!formData.date) {
       newErrors.date = "Date is required";
-    } else {
+    }
+
+    if (!formData.time) {
+      newErrors.time = "Time is required";
+    }
+
+    // Combined date and time validation for future dates
+    if (formData.date && formData.time) {
+      const now = new Date();
+      const selectedDateTime = new Date(`${formData.date}T${formData.time}`);
+
+      if (selectedDateTime < now) {
+        // If selected time is in the past
+        newErrors.time = "Please select a future date and time";
+      }
+    } else if (formData.date) {
+      // Only validate date if time isn't provided yet
       const selectedDate = new Date(formData.date);
       const today = new Date();
+
+      // Reset hours to compare just the dates
+      selectedDate.setHours(0, 0, 0, 0);
       today.setHours(0, 0, 0, 0);
 
       if (selectedDate < today) {
-        newErrors.date = "Date must be in the future";
+        newErrors.date = "Date must be today or in the future";
       }
-    }
-
-    // Time validation
-    if (!formData.time) {
-      newErrors.time = "Time is required";
     }
 
     setErrors(newErrors);
@@ -86,6 +100,9 @@ export default function BookingForm({
       onSubmit(formData);
     }
   };
+
+  // Get today's date in YYYY-MM-DD format for the min attribute
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
@@ -107,7 +124,7 @@ export default function BookingForm({
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 text-gray-700 ${
               errors.name
                 ? "border-red-500 focus:ring-red-200"
                 : "border-gray-300 focus:ring-pink-200"
@@ -132,7 +149,7 @@ export default function BookingForm({
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 text-gray-700 ${
               errors.email
                 ? "border-red-500 focus:ring-red-200"
                 : "border-gray-300 focus:ring-pink-200"
@@ -157,12 +174,12 @@ export default function BookingForm({
             name="date"
             value={formData.date}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 text-gray-700 ${
               errors.date
                 ? "border-red-500 focus:ring-red-200"
                 : "border-gray-300 focus:ring-pink-200"
             }`}
-            min={new Date().toISOString().split("T")[0]}
+            min={today}
           />
           {errors.date && (
             <p className="text-red-500 text-sm mt-1">{errors.date}</p>
@@ -182,7 +199,7 @@ export default function BookingForm({
             name="time"
             value={formData.time}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 text-gray-700 ${
               errors.time
                 ? "border-red-500 focus:ring-red-200"
                 : "border-gray-300 focus:ring-pink-200"

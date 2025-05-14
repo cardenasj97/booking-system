@@ -9,6 +9,7 @@ import CenterHeader from "@/components/CenterHeader";
 import ServiceCard from "@/components/ServiceCard";
 import BookingForm from "@/components/BookingForm";
 import BookingConfirmation from "@/components/BookingConfirmation";
+import { showConfetti } from "@/utils/confetti";
 
 enum BookingState {
   BROWSING,
@@ -31,6 +32,14 @@ export default function CenterPage() {
     useState<BookingFormData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Monitor booking state changes
+  useEffect(() => {
+    if (bookingState === BookingState.CONFIRMED) {
+      // Trigger confetti when booking is confirmed
+      showConfetti();
+    }
+  }, [bookingState]);
 
   useEffect(() => {
     const fetchCenterData = async () => {
@@ -89,8 +98,7 @@ export default function CenterPage() {
       // Update booking state
       setBookingState(BookingState.CONFIRMED);
 
-      // Scroll to top
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // Don't scroll to top when showing confirmation
     } catch (err) {
       console.error("Error creating booking:", err);
       setError("Failed to create your booking. Please try again.");
@@ -102,6 +110,16 @@ export default function CenterPage() {
   const handleFormCancel = () => {
     setSelectedService(null);
     setBookingState(BookingState.BROWSING);
+  };
+
+  const handleReturnToCenter = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent the default link navigation
+    setBookingState(BookingState.BROWSING);
+    setSelectedService(null);
+    setConfirmationData(null);
+
+    // Scroll to top of the page smoothly
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Render loading state
@@ -168,6 +186,7 @@ export default function CenterPage() {
                     date={confirmationData.date}
                     time={confirmationData.time}
                     centerId={centerId}
+                    onReturnClick={handleReturnToCenter}
                   />
                 </div>
               )}
@@ -182,7 +201,7 @@ export default function CenterPage() {
                 {isLoading ? (
                   <LoadingSpinner />
                 ) : services.length === 0 ? (
-                  <p className="text-gray-600 text-center py-10">
+                  <p className="text-gray-700 text-center py-10">
                     No services available at this time.
                   </p>
                 ) : (
