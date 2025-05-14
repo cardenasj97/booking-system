@@ -7,8 +7,8 @@ A Next.js application for beauty centers to showcase their services and allow cl
 ## Features
 
 - Center landing pages with custom URLs (/center1, /center2, etc.)
-- Display of center information including logo, name, and description
-- Service listings with details (name, duration, price, description)
+- Display of center information
+- Service listings with details
 - Booking form with validation
 - Confirmation page with booking details
 - Responsive design for mobile and desktop
@@ -21,9 +21,13 @@ A Next.js application for beauty centers to showcase their services and allow cl
 - **React** hooks for state management
 - **Mock API** for simulating backend requests with a 1.5-second delay
 
-## Running Locally
+## Instructions to run the project locally
 
-1. Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/cardenasj97/booking-system.git
+   cd booking-system
+   ```
 2. Install dependencies:
    ```bash
    npm install
@@ -66,7 +70,7 @@ Added error states and loading indicators to improve user experience during API 
 - Basic form validation is sufficient for the MVP
 - No authentication is required for booking
 
-## Unimplemented Features (Future Improvements)
+## Features to be implemented with more time
 
 - User authentication for managing bookings
 - Admin interface for beauty centers to manage services and bookings
@@ -78,7 +82,7 @@ Added error states and loading indicators to improve user experience during API 
 
 ## Time Invested
 
-Approximately [X] hours spent on this project.
+Approximately 2 hours and 20 minutes spent on this project.
 
 ## AI Tools Used
 
